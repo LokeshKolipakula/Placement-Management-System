@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 async function createAdmin() {
     try {
-        const hashedPassword = await bcrypt.hash("admin123", 10);
+        const hashedPassword = await bcrypt.hash("process.env.adminPass", 10);
 
         await Admin.create({
             name: "TPO Admin",
