@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Drive</title>
+
+    <link rel="stylesheet" href="/css/delete-drive.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Placement Portal
+    </div>
+
+    <a href="/admin/drives" class="back-btn">
+        ← Back
+    </a>
+
+</nav>
+
+<div class="container">
+
+    <div class="delete-card">
+
+        <div class="warning-icon">
+            ⚠️
+        </div>
+
+        <h1>
+            Delete Placement Drive
+        </h1>
+
+        <p class="warning-text">
+            This action cannot be undone.
+        </p>
+
+        <div class="drive-info">
+
+            <div class="info-row">
+
+                <span>Company</span>
+
+                <strong>
+                    <%= drive.companyName %>
+                </strong>
+
+            </div>
+
+            <div class="info-row">
+
+                <span>Role</span>
+
+                <strong>
+                    <%= drive.role %>
+                </strong>
+
+            </div>
+
+            <div class="info-row">
+
+                <span>Package</span>
+
+                <strong>
+                    <%= drive.package %> LPA
+                </strong>
+
+            </div>
+
+            <div class="info-row">
+
+                <span>Location</span>
+
+                <strong>
+                    <%= drive.location %>
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="action-buttons">
+
+            <a
+                href="/admin/drives"
+                class="cancel-btn"
+            >
+                Cancel
+            </a>
+
+            <form
+                action="/admin/delete-drive/<%= drive._id %>"
+                method="POST"
+            >
+
+                <button
+                    type="submit"
+                    class="delete-btn"
+                >
+                    Delete Drive
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

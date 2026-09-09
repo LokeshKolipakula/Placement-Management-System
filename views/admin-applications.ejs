@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Applications</title>
+
+    <link rel="stylesheet" href="/css/admin-applications.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Placement Portal
+        </div>
+
+        <a href="/admin-dashboard" class="dashboard-btn">
+            Dashboard
+        </a>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+
+            <div class="header-icon">
+                📋
+            </div>
+
+            <div>
+
+                <h1>
+                    Manage Applications
+                </h1>
+
+                <p>
+                    Review and manage student applications.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h2>
+                    <%= totalApplications %>
+                </h2>
+                <p>Total Applications</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>
+                    <%= appliedCount %>
+                </h2>
+                <p>Applied</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>
+                    <%= selectedCount %>
+                </h2>
+                <p>Selected</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>
+                    <%= rejectedCount %>
+                </h2>
+                <p>Rejected</p>
+            </div>
+
+        </div>
+
+
+        <form action="/admin/applications" method="GET" class="filters">
+
+            <select name="status">
+
+                <option value="All">
+                    All Status
+                </option>
+
+                <option value="Applied">
+                    Applied
+                </option>
+
+                <option value="Selected">
+                    Selected
+                </option>
+
+                <option value="Rejected">
+                    Rejected
+                </option>
+
+            </select>
+
+            <select name="company">
+
+                <option value="All">
+                    All Companies
+                </option>
+
+                <% companies.forEach(company=> { %>
+
+                    <option value="<%= company %>">
+                        <%= company %>
+                    </option>
+
+                    <% }) %>
+
+            </select>
+
+            <select name="sort">
+
+                <option value="">
+                    Sort CGPA
+                </option>
+
+                <option value="high">
+                    High → Low
+                </option>
+
+                <option value="low">
+                    Low → High
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Apply Filters
+            </button>
+
+        </form>
+        
+        <div class="search-box">
+
+            <input type="text" id="searchInput" placeholder="Search by student name or company name...">
+
+        </div>
+
+        <div class="applications-grid">
+
+            <% applications.forEach(application=> { %>
+
+                <div class="application-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                <%= application.student.name %>
+                            </h2>
+
+                            <p>
+                                <%= application.drive.companyName %>
+                            </p>
+
+                        </div>
+
+                        <span class="status <%= application.status.toLowerCase() %>">
+                            <%= application.status %>
+                        </span>
+
+                    </div>
+
+                    <div class="details">
+
+                        <p>
+                            <strong>Reg No:</strong>
+                            <%= application.student.regNo %>
+                        </p>
+
+                        <p>
+                            <strong>Branch:</strong>
+                            <%= application.student.branch %>
+                        </p>
+
+                        <p>
+                            <strong>CGPA:</strong>
+                            <%= application.student.cgpa %>
+                        </p>
+
+                        <p>
+                            <strong>Role:</strong>
+                            <%= application.drive.role %>
+                        </p>
+
+                        <p>
+                            <strong>Package:</strong>
+                            <%= application.drive.package %> LPA
+                        </p>
+
+                    </div>
+
+                    <div class="actions">
+
+                        <% if(application.student.resume){ %>
+
+                            <a href="/uploads/resumes/<%= application.student.resume %>" target="_blank"
+                                class="resume-btn">
+                                Resume
+                            </a>
+
+                            <% } %>
+
+                                <% if(application.status==="Applied" ){ %>
+
+                                    <form action="/admin/application/<%= application._id %>/accept" method="POST">
+                                        <button class="accept-btn">
+                                            Accept
+                                        </button>
+                                    </form>
+
+                                    <form action="/admin/application/<%= application._id %>/reject" method="POST">
+                                        <button class="reject-btn">
+                                            Reject
+                                        </button>
+                                    </form>
+
+                                    <% } %>
+
+                    </div>
+
+                </div>
+
+                <% }) %>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        searchInput.addEventListener(
+            "keyup",
+            function () {
+
+                const value =
+                    this.value.toLowerCase();
+
+                const cards =
+                    document.querySelectorAll(
+                        ".application-card"
+                    );
+
+                cards.forEach(card => {
+
+                    const text =
+                        card.innerText.toLowerCase();
+
+                    if (text.includes(value)) {
+
+                        card.style.display =
+                            "block";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
+
+                });
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

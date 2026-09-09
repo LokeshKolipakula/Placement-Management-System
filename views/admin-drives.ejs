@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Drives</title>
+
+    <link rel="stylesheet" href="/css/admin-drives.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Placement Portal
+    </div>
+
+    <div class="nav-actions">
+
+        <a href="/admin/create-drive" class="create-btn">
+            + Create Drive
+        </a>
+
+        <a href="/admin-dashboard" class="dashboard-btn">
+            Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+
+        <h1>Manage Placement Drives</h1>
+
+        <p>
+            Monitor, edit and manage all placement opportunities.
+        </p>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <h2><%= drives.length %></h2>
+
+            <p>Total Drives</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2><%= activeDrives %></h2>
+
+            <p>Active Drives</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2><%= closedDrives %></h2>
+
+            <p>Closed Drives</p>
+
+        </div>
+
+    </div>
+
+    <div class="drives-grid">
+
+        <% drives.forEach(drive => { %>
+
+            <div class="drive-card">
+
+                <div class="card-top">
+
+                    <div>
+
+                        <h2>
+                            <%= drive.companyName %>
+                        </h2>
+
+                        <p>
+                            <%= drive.role %>
+                        </p>
+
+                    </div>
+
+                    <% if(drive.status === "Active"){ %>
+
+                        <span class="status active">
+                            Active
+                        </span>
+
+                    <% } else { %>
+
+                        <span class="status closed">
+                            Closed
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+                <div class="details">
+
+                    <div class="detail">
+                        <span>💰</span>
+                        <p><%= drive.package %> LPA</p>
+                    </div>
+
+                    <div class="detail">
+                        <span>🎓</span>
+                        <p>CGPA ≥ <%= drive.minCGPA %></p>
+                    </div>
+
+                    <div class="detail">
+                        <span>📅</span>
+                        <p>
+                            <%= new Date(drive.driveDate).toLocaleDateString() %>
+                        </p>
+                    </div>
+
+                    <div class="detail">
+                        <span>📍</span>
+                        <p><%= drive.location %></p>
+                    </div>
+
+                </div>
+
+                <div class="branches">
+
+                    <% drive.eligibleBranches.forEach(branch => { %>
+
+                        <span class="branch-tag">
+                            <%= branch %>
+                        </span>
+
+                    <% }) %>
+
+                </div>
+
+                <div class="actions">
+
+                    <a
+                        href="/admin/edit-drive/<%= drive._id %>"
+                        class="edit-btn"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="/admin/applicants/<%= drive._id %>"
+                        class="view-btn"
+                    >
+                        Applicants
+                    </a>
+
+                    <a
+                        href="/admin/delete-drive/<%= drive._id %>"
+                        class="delete-btn"
+                    >
+                        Delete
+                    </a>
+
+                    <!-- <form
+                        action="/admin/delete-drive/<%= drive._id %>"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-btn"
+                            onclick="return confirm('Delete this drive?')"
+                        >
+                            Delete
+                        </button>
+
+                    </form> -->
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Resume</title>
+
+    <link rel="stylesheet" href="/css/upload-resume.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Placement Portal
+        </div>
+
+        <a href="/student-dashboard" class="dashboard-btn">
+            Dashboard
+        </a>
+
+    </nav>
+
+    <main class="container">
+
+        <div class="page-header">
+
+            <div class="header-icon">
+                📄
+            </div>
+
+            <div>
+                <h1>Upload Resume</h1>
+
+                <p>
+                    Keep your latest resume ready for placement opportunities.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="resume-card">
+
+            <div class="resume-info">
+
+                <div>
+                    <span class="info-label">Student</span>
+
+                    <h3>
+                        <%= student && student.name ? student.name : "Student" %>
+                    </h3>
+                </div>
+
+                <div>
+                    <span class="info-label">Registration Number</span>
+
+                    <h3>
+                        <%= student && student.regNo ? student.regNo : "-" %>
+                    </h3>
+                </div>
+
+            </div>
+
+            <% if (student && student.resume) { %>
+
+                <div class="current-resume">
+
+                    <div class="current-resume-left">
+
+                        <div class="file-icon">
+                            📑
+                        </div>
+
+                        <div>
+                            <p class="current-title">
+                                Current Resume
+                            </p>
+
+                            <p class="current-file">
+                                <%= student.resume %>
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="resume-actions">
+
+                        <span class="uploaded-badge">
+                            Uploaded
+                        </span>
+
+                        <a
+                            href="/uploads/resumes/<%= student.resume %>"
+                            target="_blank"
+                            class="view-resume-btn"
+                        >
+                            View Resume
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <% } else { %>
+
+                    <div class="no-resume">
+
+                        <span>⚠️</span>
+
+                        <p>
+                            You have not uploaded a resume yet.
+                        </p>
+
+                    </div>
+
+                    <% } %>
+
+
+                        <form action="/student/upload-resume" method="POST" enctype="multipart/form-data"
+                            class="upload-form">
+
+                            <label for="resume" class="upload-box">
+
+                                <div class="upload-icon">
+                                    ☁️
+                                </div>
+
+                                <h2>
+                                    Choose Your Resume
+                                </h2>
+
+                                <p>
+                                    Click here to select a PDF file
+                                </p>
+
+                                <span>
+                                    PDF only • Maximum 5 MB
+                                </span>
+
+                                <input type="file" id="resume" name="resume" accept=".pdf,application/pdf" required>
+
+                            </label>
+
+                            <div id="file-name" class="file-name">
+                                No file selected
+                            </div>
+
+                            <button type="submit" class="upload-btn">
+                                <span>⬆</span>
+                                Upload Resume
+                            </button>
+
+                        </form>
+
+        </div>
+
+        <div class="tips-card">
+
+            <h2>
+                Resume Tips
+            </h2>
+
+            <div class="tips-grid">
+
+                <div class="tip">
+                    <span>✓</span>
+
+                    <p>
+                        Keep your resume concise and preferably one or two pages.
+                    </p>
+                </div>
+
+                <div class="tip">
+                    <span>✓</span>
+
+                    <p>
+                        Include your skills, projects and relevant achievements.
+                    </p>
+                </div>
+
+                <div class="tip">
+                    <span>✓</span>
+
+                    <p>
+                        Upload your latest resume before applying for a drive.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const resumeInput = document.getElementById("resume");
+        const fileName = document.getElementById("file-name");
+
+        resumeInput.addEventListener("change", function () {
+
+            if (this.files.length > 0) {
+
+                fileName.textContent =
+                    "Selected: " + this.files[0].name;
+
+            } else {
+
+                fileName.textContent =
+                    "No file selected";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

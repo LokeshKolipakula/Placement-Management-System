@@ -1,0 +1,37 @@
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
+    font-family:'Poppins',sans-serif;
+}
+
+.error-container{
+    text-align:center;
+    color:white;
+}
+
+.error-container h1{
+    font-size:120px;
+    margin:0;
+}
+
+.error-container h2{
+    margin:10px 0;
+}
+
+.error-container p{
+    opacity:.8;
+}
+
+.error-container a{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 24px;
+    background:#4f46e5;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+}

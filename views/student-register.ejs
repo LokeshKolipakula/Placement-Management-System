@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+
+    <link rel="stylesheet" href="/css/student-register.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="background"></div>
+
+<a href="/student-login" class="back-btn">
+    ← Back
+</a>
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <div class="icon">🎓</div>
+
+        <h1>Create Account</h1>
+
+        <p>
+            Register to access placement opportunities
+        </p>
+
+        <form action="/student-register" method="POST">
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="regNo"
+                    placeholder="Registration Number"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="University Email"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="branch"
+                    placeholder="Branch"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="number"
+                    step="0.01"
+                    name="cgpa"
+                    placeholder="CGPA"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student</title>
+
+    <link rel="stylesheet" href="/css/edit-student.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Placement Portal
+    </div>
+
+    <a href="/admin/manage-students" class="back-btn">
+        ← Back
+    </a>
+
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+
+        <div class="header-icon">
+            ✏️
+        </div>
+
+        <div>
+
+            <h1>Edit Student</h1>
+
+            <p>
+                Update student information and placement details.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-card">
+
+        <form
+            action="/admin/edit-student/<%= student._id %>"
+            method="POST"
+        >
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Name</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value="<%= student.name %>"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Registration Number</label>
+
+                    <input
+                        type="text"
+                        value="<%= student.regNo %>"
+                        readonly
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="<%= student.email %>"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Phone</label>
+
+                    <input
+                        type="text"
+                        name="phone"
+                        value="<%= student.phone %>"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Branch</label>
+
+                    <input
+                        type="text"
+                        name="branch"
+                        value="<%= student.branch %>"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>CGPA</label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="cgpa"
+                        value="<%= student.cgpa %>"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>10th Percentage</label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="tenthPercentage"
+                        value="<%= student.tenthPercentage %>"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>12th Percentage</label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="twelfthPercentage"
+                        value="<%= student.twelfthPercentage %>"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Backlogs</label>
+
+                    <input
+                        type="number"
+                        name="backlogs"
+                        value="<%= student.backlogs %>"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Placement Status</label>
+
+                    <select name="placementStatus">
+
+                        <option
+                            value="Not Placed"
+                            <%= student.placementStatus === "Not Placed" ? "selected" : "" %>
+                        >
+                            Not Placed
+                        </option>
+
+                        <option
+                            value="Placed"
+                            <%= student.placementStatus === "Placed" ? "selected" : "" %>
+                        >
+                            Placed
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <% if(student.resume){ %>
+
+                <a
+                    href="/uploads/resumes/<%= student.resume %>"
+                    target="_blank"
+                    class="resume-btn"
+                >
+                    📄 View Resume
+                </a>
+
+            <% } %>
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

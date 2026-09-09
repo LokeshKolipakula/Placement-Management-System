@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="/css/student-dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Placement Portal
+        </div>
+
+        <a href="/student/logout" class="logout-btn">
+            Logout
+        </a>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="welcome-section">
+
+            <h1>
+                Welcome Back, <%= student ? student.name : "Student" %> 👋
+            </h1>
+
+            <p>
+                Manage your profile and track placement opportunities.
+            </p>
+
+        </div>
+
+        <!-- Action Cards -->
+
+        <div class="action-grid">
+
+            <a href="/student/profile" class="action-card">
+
+                <div class="icon">👤</div>
+
+                <h3>Complete Profile</h3>
+
+                <p>
+                    Update academic and personal details.
+                </p>
+
+            </a>
+
+            <a href="/student/upload-resume" class="action-card">
+
+                <div class="icon">📄</div>
+
+                <h3>Upload Resume</h3>
+
+                <p>
+                    Upload your latest resume.
+                </p>
+
+            </a>
+
+            <a href="/student/drives" class="action-card">
+
+                <div class="icon">🚀</div>
+
+                <h3>View Drives</h3>
+
+                <p>
+                    Explore eligible placement drives.
+                </p>
+
+            </a>
+
+            <a href="/student/applications" class="action-card">
+
+                <div class="icon">📋</div>
+
+                <h3>Applications</h3>
+
+                <p>
+                    Track all your applications.
+                </p>
+
+            </a>
+
+        </div>
+
+        <!-- Stats -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h2>
+                    <%= eligibleDrives %>
+                </h2>
+                <p>Eligible Drives</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>
+                    <%= appliedCount %>
+                </h2>
+                <p>Applied Drives</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>
+                    <%= selectedCount %>
+                </h2>
+                <p>Selected</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>
+                    <%= pendingCount %>
+                </h2>
+                <p>Pending</p>
+            </div>
+
+        </div>
+
+        <!-- Placement Status -->
+
+        <div class="status-card">
+
+            <h2>Placement Status</h2>
+
+            <div class="status-badge">
+
+                <% if(student.placementStatus==="Placed" ){ %>
+
+                    🎉 Placed
+
+                    <% } else { %>
+
+                        🚀 Not Placed
+
+                        <% } %>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Drives -->
+
+        <div class="activity-card">
+
+            <h2>Latest Placement Drives</h2>
+
+            <ul>
+
+                <% latestDrives.forEach(drive=> { %>
+
+                    <li>
+                        <%= drive.companyName %>
+                            -
+                            <%= drive.role %>
+                    </li>
+
+                    <% }) %>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

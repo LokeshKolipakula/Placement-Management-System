@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Placement Portal
+        </div>
+
+        <a href="/admin/logout" class="logout-btn">
+            Logout
+        </a>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="welcome-section">
+
+            <h1>
+                Welcome Back, Admin 👋
+            </h1>
+
+            <p>
+                Manage students, drives, recruiters and applications.
+            </p>
+
+        </div>
+
+        <!-- Action Cards -->
+
+        <div class="action-grid">
+
+            <a href="/admin/manage-students" class="action-card">
+
+                <div class="icon">🎓</div>
+
+                <h3>Manage Students</h3>
+
+                <p>
+                    View and maintain student records.
+                </p>
+
+            </a>
+
+            <a href="/admin/drives" class="action-card">
+
+                <div class="icon">📋</div>
+
+                <h3>Placement Drives</h3>
+
+                <p>
+                    Monitor active drives and manage applications.
+                </p>
+
+            </a>
+
+            <a href="/admin/create-drive" class="action-card">
+
+                <div class="icon">🚀</div>
+
+                <h3>Create Drive</h3>
+
+                <p>
+                    Schedule new placement drives.
+                </p>
+
+            </a>
+
+            <a href="/admin/applications" class="action-card">
+
+                <div class="icon">📋</div>
+
+                <h3>Applications</h3>
+
+                <p>
+                    Track student applications.
+                </p>
+
+            </a>
+
+
+        </div>
+
+        <!-- Stats -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <h2>
+                    <%= totalStudents %>
+                </h2>
+
+                <p>Total Students</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <%= activeDrives %>
+                </h2>
+
+                <p>Active Drives</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <%= totalApplications %>
+                </h2>
+
+                <p>Total Applications</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <%= selectedStudents %>
+                </h2>
+
+                <p>Selected Students</p>
+
+            </div>
+
+        </div>
+
+        <!-- Activity -->
+
+        <div class="activity-card">
+
+            <h2>
+                Recent Activity
+            </h2>
+
+            <ul>
+
+                <% recentDrives.forEach(drive=> { %>
+
+                    <li>
+
+                        <strong>
+                            <%= drive.companyName %>
+                        </strong>
+
+                        -
+                        <%= drive.role %>
+
+                            (
+                            <%= drive.status %>
+                                )
+
+                    </li>
+
+                    <% }) %>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

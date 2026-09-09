@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Drive Applicants</title>
+
+    <link rel="stylesheet"
+          href="/css/drive-applicants.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Placement Portal
+    </div>
+
+    <a href="/admin/drives"
+       class="back-btn">
+        ← Back
+    </a>
+
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+
+        <div class="header-icon">
+            👨‍🎓
+        </div>
+
+        <div>
+
+            <h1>
+                Drive Applicants
+            </h1>
+
+            <p>
+                <%= drive.companyName %> • <%= drive.role %>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="stats-card">
+
+        <h2>
+            Total Applicants
+        </h2>
+
+        <span>
+            <%= applications.length %>
+        </span>
+
+    </div>
+
+    <% if(applications.length === 0){ %>
+
+        <div class="empty-card">
+
+            <h2>No Applicants Yet</h2>
+
+            <p>
+                No students have applied for this drive.
+            </p>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="applicants-grid">
+
+            <% applications.forEach(application => { %>
+
+                <div class="applicant-card">
+
+                    <div class="card-header">
+
+                        <div class="avatar">
+                            🎓
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                <%= application.student.name %>
+                            </h2>
+
+                            <p>
+                                <%= application.student.regNo %>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="details">
+
+                        <div class="detail">
+
+                            <span>🏫</span>
+
+                            <p>
+                                <%= application.student.branch %>
+                            </p>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <span>📈</span>
+
+                            <p>
+                                CGPA:
+                                <%= application.student.cgpa %>
+                            </p>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <span>📧</span>
+
+                            <p>
+                                <%= application.student.email %>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <% if(application.student.resume){ %>
+
+                        <a
+                            href="/uploads/resumes/<%= application.student.resume %>"
+                            target="_blank"
+                            class="resume-btn"
+                        >
+                            View Resume
+                        </a>
+
+                    <% } %>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>

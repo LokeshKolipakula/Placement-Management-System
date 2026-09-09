@@ -1,0 +1,153 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    overflow-y:auto;
+    padding:40px 0;
+}
+
+.background{
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    background:
+    radial-gradient(circle at 20% 20%, #3b82f6 0%, transparent 25%),
+    radial-gradient(circle at 80% 30%, #8b5cf6 0%, transparent 25%),
+    radial-gradient(circle at 50% 80%, #06b6d4 0%, transparent 30%);
+
+    filter:blur(80px);
+}
+
+.back-btn{
+    position:fixed;
+    top:30px;
+    left:40px;
+
+    text-decoration:none;
+    color:white;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(15px);
+
+    z-index:10;
+}
+
+.register-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.register-card{
+
+    width:450px;
+
+    padding:40px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:25px;
+
+    box-shadow:0 10px 40px rgba(0,0,0,.3);
+
+    z-index:10;
+}
+
+.icon{
+    font-size:70px;
+    margin-bottom:15px;
+}
+
+.register-card h1{
+    color:white;
+    margin-bottom:10px;
+}
+
+.register-card p{
+    color:#cbd5e1;
+    margin-bottom:30px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.12);
+
+    color:white;
+
+    font-size:15px;
+}
+
+.input-group input::placeholder{
+    color:#cbd5e1;
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}

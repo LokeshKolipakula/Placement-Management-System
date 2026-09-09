@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Students</title>
+
+    <link rel="stylesheet" href="/css/manage-students.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Placement Portal
+    </div>
+
+    <a href="/admin-dashboard" class="dashboard-btn">
+        Dashboard
+    </a>
+
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+
+        <div class="header-icon">
+            👨‍🎓
+        </div>
+
+        <div>
+
+            <h1>Manage Students</h1>
+
+            <p>
+                View and manage all registered students.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="stats-card">
+
+        <h2>Total Students</h2>
+
+        <span>
+            <%= students.length %>
+        </span>
+
+    </div>
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by Name, Registration Number or Branch"
+        >
+
+    </div>
+
+    <div class="students-grid" id="studentsGrid">
+
+        <% students.forEach(student => { %>
+
+            <div class="student-card">
+
+                <div class="student-header">
+
+                    <div>
+
+                        <h2>
+                            <%= student.name %>
+                        </h2>
+
+                        <p>
+                            <%= student.regNo %>
+                        </p>
+
+                    </div>
+
+                    <% if(student.placementStatus === "Placed"){ %>
+
+                        <span class="placed">
+                            Placed
+                        </span>
+
+                    <% } else { %>
+
+                        <span class="not-placed">
+                            Not Placed
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+                <div class="details">
+
+                    <p>
+                        <strong>Email:</strong>
+                        <%= student.email %>
+                    </p>
+
+                    <p>
+                        <strong>Branch:</strong>
+                        <%= student.branch %>
+                    </p>
+
+                    <p>
+                        <strong>CGPA:</strong>
+                        <%= student.cgpa %>
+                    </p>
+
+                    <p>
+                        <strong>Backlogs:</strong>
+                        <%= student.backlogs %>
+                    </p>
+
+                </div>
+
+                <div class="actions">
+
+                    <% if(student.resume){ %>
+
+                        <a
+                            href="/uploads/resumes/<%= student.resume %>"
+                            target="_blank"
+                            class="resume-btn"
+                        >
+                            Resume
+                        </a>
+
+                    <% } %>
+
+                    <a
+                        href="/admin/edit-student/<%= student._id %>"
+                        class="edit-btn"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="/admin/delete-student/<%= student._id %>"
+                        class="delete-btn"
+                    >
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</div>
+
+<script>
+
+const searchInput =
+    document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup", function(){
+
+    const value =
+        this.value.toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".student-card");
+
+    cards.forEach(card => {
+
+        const text =
+            card.innerText.toLowerCase();
+
+        if(text.includes(value)){
+
+            card.style.display = "block";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Applications</title>
+
+    <link rel="stylesheet" href="/css/student-applications.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<nav class="navbar">
+
+    <div class="logo">
+        Placement Portal
+    </div>
+
+    <a href="/student-dashboard" class="dashboard-btn">
+        Dashboard
+    </a>
+
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+
+        <div class="header-icon">
+            📋
+        </div>
+
+        <div>
+
+            <h1>My Applications</h1>
+
+            <p>
+                Track all your placement applications.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="stats-card">
+
+        <h2>
+            Total Applications
+        </h2>
+
+        <span>
+            <%= applications.length %>
+        </span>
+
+    </div>
+
+    <% if(applications.length === 0){ %>
+
+        <div class="empty-card">
+
+            <h2>
+                No Applications Yet
+            </h2>
+
+            <p>
+                Apply for placement drives to see them here.
+            </p>
+
+            <a href="/student/drives">
+                Browse Drives
+            </a>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="applications-grid">
+
+            <% applications.forEach(application => { %>
+
+                <div class="application-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                <%= application.drive.companyName %>
+                            </h2>
+
+                            <p>
+                                <%= application.drive.role %>
+                            </p>
+
+                        </div>
+
+                        <% if(application.status === "Applied"){ %>
+
+                            <span class="status applied">
+                                Applied
+                            </span>
+
+                        <% } %>
+
+                        <% if(application.status === "Shortlisted"){ %>
+
+                            <span class="status shortlisted">
+                                Shortlisted
+                            </span>
+
+                        <% } %>
+
+                        <% if(application.status === "Rejected"){ %>
+
+                            <span class="status rejected">
+                                Rejected
+                            </span>
+
+                        <% } %>
+
+                        <% if(application.status === "Selected"){ %>
+
+                            <span class="status selected">
+                                Selected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                    <div class="details">
+
+                        <div class="detail">
+
+                            <span>💰</span>
+
+                            <p>
+                                <%= application.drive.package %> LPA
+                            </p>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <span>📍</span>
+
+                            <p>
+                                <%= application.drive.location %>
+                            </p>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <span>📅</span>
+
+                            <p>
+                                Applied:
+                                <%= application.appliedAt.toLocaleDateString() %>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>

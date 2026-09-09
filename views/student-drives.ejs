@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Placement Drives</title>
+
+    <link rel="stylesheet" href="/css/student-drives.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Placement Portal
+        </div>
+
+        <a href="/student-dashboard" class="back-btn">
+            Dashboard
+        </a>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="page-header">
+
+            <div class="header-left">
+
+                <h1>
+                    Placement Drives
+                </h1>
+
+                <p>
+                    Explore and apply for upcoming opportunities
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <h2>
+                    <%= drives.length %>
+                </h2>
+
+                <p>
+                    Total Drives
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <%= eligibleCount || 0 %>
+                </h2>
+
+                <p>
+                    Eligible
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    Active
+                </h2>
+
+                <p>
+                    Placement Season
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="search-section">
+
+            <input type="text" id="searchInput" placeholder="Search company...">
+
+        </div>
+
+        <div class="drives-grid">
+
+            <% drives.forEach(drive=> { %>
+
+                <div class="drive-card">
+
+                    <div class="company-header">
+
+                        <div>
+
+                            <h2>
+                                <%= drive.companyName %>
+                            </h2>
+
+                            <p>
+                                <%= drive.role %>
+                            </p>
+
+                        </div>
+
+                        <% if(drive.eligible){ %>
+
+                            <span class="eligible">
+                                Eligible
+                            </span>
+
+                            <% } else { %>
+
+                                <span class="not-eligible">
+                                    Not Eligible
+                                </span>
+
+                                <% } %>
+
+                    </div>
+
+                    <div class="details">
+
+                        <div class="detail">
+
+                            <span>💰</span>
+
+                            <p>
+                                <%= drive.package %> LPA
+                            </p>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <span>🎓</span>
+
+                            <p>
+                                Min CGPA:
+                                <%= drive.minCGPA %>
+                            </p>
+
+                        </div>
+
+                        <div class="detail">
+
+                            <span>📅</span>
+
+                            <p>
+                                <%= drive.driveDate %>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+
+                        <% if(drive.applied){ %>
+
+                            <button class="applied-btn" disabled>
+                                ✓ Applied
+                            </button>
+
+                            <% } else if(drive.eligible){ %>
+
+                                <a href="/student/apply/<%= drive._id %>" class="apply-btn">
+                                    Apply Now
+                                </a>
+
+                                <% } else { %>
+
+                                    <button class="disabled-btn" disabled>
+                                        Not Eligible
+                                    </button>
+
+                                    <% } %>
+
+                    </div>
+
+                </div>
+
+                <% }) %>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        searchInput.addEventListener(
+            "keyup",
+            function () {
+
+                const filter =
+                    this.value.toLowerCase();
+
+                const cards =
+                    document.querySelectorAll(".drive-card");
+
+                cards.forEach(card => {
+
+                    const company =
+                        card.querySelector("h2")
+                            .innerText
+                            .toLowerCase();
+
+                    if (company.includes(filter)) {
+
+                        card.style.display = "block";
+
+                    } else {
+
+                        card.style.display = "none";
+
+                    }
+
+                });
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
