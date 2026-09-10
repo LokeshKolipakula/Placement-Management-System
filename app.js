@@ -7,6 +7,7 @@ const app = express();
 
 const adminRoutes = require("./routes/Admin");
 const studentRoutes = require("./routes/Student");
+const PORT = process.env.PORT || 8080;
 
 app.set("view engine", "ejs");
 
@@ -91,6 +92,6 @@ mongoose.connect(process.env.MONGO_URL)
     console.log(err);
 });
 
-app.listen(8080,()=>{
-    console.log("Server running on port 8080");
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
