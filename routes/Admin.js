@@ -494,11 +494,29 @@ router.post(
     adminAuth,
     async (req, res) => {
 
-        await Application.findByIdAndUpdate(
-            req.params.id,
+        const application =
+            await Application.findByIdAndUpdate(
+
+                req.params.id,
+
+                {
+                    status: "Selected"
+                },
+
+                {
+                    new: true
+                }
+
+            );
+
+        await Student.findByIdAndUpdate(
+
+            application.student,
+
             {
-                status: "Selected"
+                placementStatus: "Placed"
             }
+
         );
 
         res.redirect(
@@ -513,11 +531,29 @@ router.post(
     adminAuth,
     async (req, res) => {
 
-        await Application.findByIdAndUpdate(
-            req.params.id,
+        const application =
+            await Application.findByIdAndUpdate(
+
+                req.params.id,
+
+                {
+                    status: "Rejected"
+                },
+
+                {
+                    new: true
+                }
+
+            );
+
+        await Student.findByIdAndUpdate(
+
+            application.student,
+
             {
-                status: "Rejected"
+                placementStatus: "Not Placed"
             }
+
         );
 
         res.redirect(

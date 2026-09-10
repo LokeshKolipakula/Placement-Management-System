@@ -1,5 +1,4 @@
 const multer = require("multer");
-const path = require("path");
 
 const storage = multer.diskStorage({
 
@@ -11,12 +10,10 @@ const storage = multer.diskStorage({
 
     filename: (req, file, cb) => {
 
-        const uniqueName =
-            Date.now() +
-            "-" +
-            file.originalname;
-
-        cb(null, uniqueName);
+        cb(
+            null,
+            Date.now() + "-" + file.originalname
+        );
 
     }
 
@@ -24,11 +21,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
 
-    const allowedTypes = [
-        "application/pdf"
-    ];
-
-    if (allowedTypes.includes(file.mimetype)) {
+    if (file.mimetype === "application/pdf") {
 
         cb(null, true);
 
@@ -43,7 +36,7 @@ const fileFilter = (req, file, cb) => {
 
 };
 
-const upload = multer({
+module.exports = multer({
 
     storage,
 
@@ -54,5 +47,3 @@ const upload = multer({
     }
 
 });
-
-module.exports = upload;

@@ -87,6 +87,11 @@ const studentSchema = new mongoose.Schema({
         default: ""
     },
 
+    resumePublicId: {
+        type: String,
+        default: ""
+    }, 
+
     // Placement Status
 
     placementStatus: {

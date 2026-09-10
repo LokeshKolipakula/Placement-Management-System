@@ -37,6 +37,19 @@ app.get("/login-selection", (req, res) => {
     res.render("login-selection");
 });
 
+
+const cloudinary = require("./config/cloudinary");
+
+app.get("/cloudinary-test", async (req, res) => {
+    try {
+        const result = await cloudinary.api.ping();
+        res.send(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 // Routes
 app.use(adminRoutes);
 app.use(studentRoutes);

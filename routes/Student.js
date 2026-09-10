@@ -6,6 +6,11 @@ const Drive = require("../models/Drive");
 const Application = require("../models/Application");
 const studentAuth = require("../middlewares/studentAuth");
 
+const fs = require("fs");
+const streamifier = require("streamifier");
+const cloudinary = require("../config/cloudinary");
+
+
 const router = express.Router();
 
 router.get("/student-login", (req, res) => {
@@ -219,7 +224,7 @@ router.get("/student-dashboard", async (req, res) => {
 
 });
 
-router.get("/student/profile", studentAuth ,async (req, res) => {
+router.get("/student/profile", studentAuth, async (req, res) => {
 
     const student = await Student.findById(
         req.session.studentId
@@ -279,7 +284,7 @@ router.post("/student/profile", studentAuth, async (req, res) => {
 });
 
 
-router.get("/student/upload-resume",studentAuth, async (req, res) => {
+router.get("/student/upload-resume", studentAuth, async (req, res) => {
 
     const student = await Student.findById(
         req.session.studentId
@@ -292,41 +297,65 @@ router.get("/student/upload-resume",studentAuth, async (req, res) => {
 
 router.post(
     "/student/upload-resume",
-    upload.single("resume"),
     studentAuth,
+    upload.single("resume"),
     async (req, res) => {
 
         try {
 
             if (!req.file) {
+                return res.send("Please upload a PDF resume");
+            }
 
-                return res.send(
-                    "Please upload a PDF resume"
+            console.log(req.file.path);
+
+            // Get current student first
+            const student = await Student.findById(
+                req.session.studentId
+            );
+
+            if (!student) {
+                return res.status(404).send("Student not found");
+            }
+
+            // Delete previous resume from Cloudinary
+            if (student.resumePublicId) {
+
+                await cloudinary.uploader.destroy(
+                    student.resumePublicId,
+                    {
+                        resource_type: "raw"
+                    }
                 );
 
             }
 
-            await Student.findByIdAndUpdate(
-
-                req.session.studentId,
-
+            // Upload new resume
+            const result = await cloudinary.uploader.upload(
+                req.file.path,
                 {
-                    resume: req.file.filename
-                },
-
-                {
-                    runValidators: true
+                    folder: "placement-resumes",
+                    resource_type: "raw"
                 }
-
             );
 
-            res.redirect(
-                "/student-dashboard"
-            );
+            console.log(result);
+
+            // Save Cloudinary details in MongoDB
+            student.resume = result.secure_url;
+            student.resumePublicId = result.public_id;
+
+            await student.save();
+
+            // Delete temporary local PDF
+            fs.unlinkSync(req.file.path);
+
+            res.redirect("/student-dashboard");
 
         } catch (err) {
 
-            console.log(err);
+            console.log("UPLOAD ERROR:");
+            console.dir(err, { depth: null });
 
             res.status(500).send(
                 "Error uploading resume"
@@ -337,8 +366,7 @@ router.post(
     }
 );
 
-
-router.get("/student/drives",studentAuth ,async (req, res) => {
+router.get("/student/drives", studentAuth, async (req, res) => {
     console.log("Apply route hit");
 
     try {
@@ -418,7 +446,7 @@ router.get("/student/drives",studentAuth ,async (req, res) => {
     }
 });
 
-router.get("/student/apply/:id",studentAuth, async (req, res) => {
+router.get("/student/apply/:id", studentAuth, async (req, res) => {
 
     try {
 
@@ -461,7 +489,7 @@ router.get("/student/apply/:id",studentAuth, async (req, res) => {
 
 });
 
-router.get("/student/applications",studentAuth, async (req, res) => {
+router.get("/student/applications", studentAuth, async (req, res) => {
 
     const applications =
         await Application.find({
@@ -477,7 +505,7 @@ router.get("/student/applications",studentAuth, async (req, res) => {
 
 });
 
-router.get("/student/logout", studentAuth ,(req, res) => {
+router.get("/student/logout", studentAuth, (req, res) => {
 
     req.session.destroy((err) => {
 
